@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
@@ -17,7 +16,7 @@ export default function Home() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                prompt: e.target.prompt.value,
+              image: e.target.prompt.value,
             }),
         })
         let prediction = await response.json()
@@ -43,15 +42,13 @@ export default function Home() {
     return (
         <div className={styles.container}>
             <Head>
-                <title>Replicate + Next.js</title>
+                <title>Testing Replica</title>
             </Head>
 
-            <p>
-                Dream something with <a href='https://replicate.com/stability-ai/stable-diffusion'>stability-ai/stable-diffusion</a>:
-            </p>
+            <p>Replica says hello:</p>
 
             <form className={styles.form} onSubmit={handleSubmit}>
-                <input type='text' name='prompt' placeholder='Enter a prompt to display an image' />
+                <input type='text' name='prompt' placeholder='Enter your name' />
                 <button type='submit'>Go!</button>
             </form>
 
@@ -61,10 +58,10 @@ export default function Home() {
                 <div>
                     {prediction.output && (
                         <div className={styles.imageWrapper}>
-                            <Image fill src={prediction.output[prediction.output.length - 1]} alt='output' sizes='100vw' />
+                            <div className={styles.resultWrapper}>{prediction.output}</div>
+                            {/* <Image fill src={prediction.output[prediction.output.length - 1]} alt='output' sizes='100vw' /> */}
                         </div>
                     )}
-                    <p>status: {prediction.status}</p>
                 </div>
             )}
         </div>
